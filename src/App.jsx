@@ -22,9 +22,11 @@ function derivingCurrentPlayer(gameTurns) {
   return currentPlayer;
 }
 
+
 function App() {
   const [gameTurns, setGameTurns] = useState([]);
   let winner;
+  const draw = gameTurns.length === 9 && !winner;
 
   const activePlayer = derivingCurrentPlayer(gameTurns);
 
@@ -67,7 +69,7 @@ function App() {
           <Player initialName="Player 1" symbol="X" isActive={activePlayer === 'X'} />
           <Player initialName="Player 2" symbol="O" isActive={activePlayer === 'O'} />
         </ol>
-        {winner && <GameOver winner={winner}/>}
+        {(winner || draw) && <GameOver winner={winner}/>}
         <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
       </div>
       <Log turns={gameTurns} />
